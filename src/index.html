@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JP - Conversor</title>
+
+    <link rel="shortcut icon" href="/icon/filter.ico" >
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+
+    <link rel="stylesheet" href="/css/css2">
+    
+    <script src="/js/sweetalert2.js"></script>
+    <script src="/js/polyfill.js"></script>
+    
+    <link rel="stylesheet" href="/css/style.css">
+
+</head>
+<body>
+    <div class="container">
+        <label>Cole as variaveis de ambiente do seu .yalm <a  alt="a"  class="showInfo shadow" onclick="showInfo()">i</a></label>
+        <textarea class="shadow language-yaml" wrap="off" id="enviromentsTextArea" onkeyup="converter()" ></textarea>
+
+        <button  class="shadow btn-copy" id="converterBtn" onclick="copyToClipBoard()"><span><img height="20px" style="margin-right:10px;" src="/icon/copy.svg"></span>Copiar resultado</button>
+        
+        <textarea  class="shadow" wrap="off" id="resultTextArea"></textarea>
+    </div>
+
+    <div class="surprise">
+        <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+        <lottie-player src="https://assets1.lottiefiles.com/packages/lf20_ydo1amjm.json"  background="transparent"  speed="1"  style="width: 300px; height: 300px;"  loop  autoplay></lottie-player>
+        <br>
+        <p>João Pedro Freitas Barros - 2022</p><br><small id="timer"></small>
+    </div>
+
+</body>
+    <script> 
+        let clicks = 0
+        const eastereggTime = 2000
+       
+        function showInfo(){
+            Swal.fire({
+            allowEnterKey: true,
+            html: 
+               `<h1>Instruções</h1>
+               <hr style="margin: 10px">
+               <p>Templates disponíveis</p>
+
+               <div class="imgs-modal">
+                <img src="/img/env4.png" alt="env1">
+                <img src="/img/env3.png" alt="env2">
+               </div>
+
+               <small>Não insira a linha <strong>env_variables:</strong> ou <strong>env:</strong></small>
+               <br>
+               <small>Não é aceito espaçamento entre comentários. Ex: #comentário espaçado</small>
+               
+               `
+               ,
+               confirmButtonText: 'Confirmar',
+               customClass: {
+                popup: 'modal-instruc',
+                container: 'modal-container',
+                confirmButton: 'btn-copy'
+               },
+               buttonsStyling: false,
+            })
+
+            
+        }
+
+        showInfo()
+
+        const enviroments = document.querySelector("#enviromentsTextArea")
+        const converterBtn = document.querySelector("#converterBtn")
+        const result = document.querySelector("#resultTextArea")
+        const timer = document.querySelector("#timer")
+
+        const container = document.querySelector('.container')
+        const surprise = document.querySelector('.surprise')
+        const body = document.querySelector('body')
+
+        function copyToClipBoard(){
+            let text = result
+            text.select()
+            text.setSelectionRange(0, 99999)
+            document.execCommand("copy")
+
+            easteregg()
+        }
+
+        function easteregg(){
+            clicks++
+            console.log(clicks)
+            if(clicks > 5){
+                container.style.display = 'none'
+                surprise.style.display = 'flex'
+                body.style.padding = '0'
+
+                startTimer()
+                setTimeout(() => {
+                    clicks = 0
+                }, eastereggTime)
+            }else{
+                container.style.display = 'flex'
+                surprise.style.display = 'none'
+                body.style.padding = '10px 0'
+            }
+        }
+
+        function startTimer(){
+            let interval = eastereggTime
+            
+            let intervalTimer = setInterval(() => {
+                this.timer.innerHTML = String(interval--)+'ms'
+                if(interval<0){
+                    clearInterval(intervalTimer)
+                    easteregg()
+                }
+            }, 1);
+        }
+
+        
+
+        function converter(){
+            result.value = ""
+
+            if(!enviroments.value) return
+
+            let isK8 = enviroments.value.indexOf('- name') != -1
+
+            let words = ''
+                words = enviroments
+                            .value
+                            .replaceAll('- name:','')
+                            .replaceAll('value:','')
+                            .replaceAll(": ","  ")
+                            .replaceAll("#"," #")
+                            .replaceAll(' ', ' ')
+                            .split(enviroments.value.indexOf('- name') != -1 ? '  ' : ' '   )
+                            .filter(palavras => !palavras.startsWith("#"))
+                            .map(w =>  w.replaceAll('"','')
+                                        .replaceAll(";","\\;")
+                                        .trim())
+                            .filter(word => word)
+
+            let newEnviroments = ""
+            words.forEach((word, index) => {
+                newEnviroments += word.trim() + (index % 2 != 0? ";" : "=")
+            });
+
+            result.value = newEnviroments
+        }
+    
+    </script>
+</html>

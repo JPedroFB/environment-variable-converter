@@ -1,0 +1,188 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto Mono', monospace;
+}
+
+body{
+    padding: 10px 0;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+textarea{
+    overflow: auto;
+    resize: none;
+   
+    font-size: 1.0em;
+    border: none;
+    
+}
+
+.shadow{
+    -webkit-box-shadow: 0px 2px 9px 2px rgba(209,209,209,0.56);
+    -moz-box-shadow: 0px 2px 9px 2px rgba(209,209,209,0.56);
+    box-shadow: 0px 2px 9px 2px rgba(209,209,209,0.56);
+}
+
+textarea:focus {
+    border:none
+}
+
+#enviromentsTextArea{
+    width: 100%;
+    height: 60%;
+    padding: 10px;
+   
+}
+
+#resultTextArea{
+    width: 100%;
+    height: 10%;
+    padding: 10px;
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    height: 100vh;
+}
+
+.btn-copy{
+    transition: 0.2s ease;
+    margin: 20px 0;
+    background-color: none;
+    border: none;
+    padding: 20px 40px;
+    font-size: 1.5em;
+    font-weight: 700;
+    background-color: rgb(174 241 159);
+    color: #4a4a4a;
+    cursor: pointer;
+}
+
+.btn-copy:hover{
+    color: #707070;
+}
+
+/* width */
+::-webkit-scrollbar {
+width: 8px;
+height: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+background: #eeeeee;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+background: #a3a3a3;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+background: #707070;
+}
+
+label{
+    font-size: 1.5em;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.imgs-modal{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 50px;
+}
+
+.imgs-modal img{
+    height: fit-content;
+    padding: 10px;
+    width: 100%;
+}
+
+.modal-instruc{
+    width: 60%;
+    min-width: 400px;
+}
+
+.modal-container{
+    padding: 20px;
+}
+
+@media screen and (max-width: 1250px) {
+    .modal-instruc{
+        width: 90%;
+    }
+
+    .imgs-modal img{
+        padding: 10px;
+        width: 70%;
+    }
+}
+
+
+@media screen and (max-width: 790px){
+    .imgs-modal{
+        flex-wrap: wrap;
+        padding: 10px 0;
+    }
+
+    .imgs-modal img{
+        padding: 0px;
+        width: 100%;
+    }
+}
+
+
+
+.showInfo{
+    border: 0;
+    background-color: black;
+    color: white;
+    font-size: 1.0em;
+    padding: 1px 11px;
+    border-radius: 100%;
+    cursor: pointer;
+    font-family: auto;
+    font-style: italic;
+}
+
+.showInfo:focus{
+    outline: 0px auto -webkit-focus-ring-color;
+    outline-offset: 0px;
+}
+
+.showInfo:hover::after{
+    content: 'Instruções';
+    position: absolute;
+    font-size: 0.5em;
+    border: #d6d6d6 0.1px solid;
+    padding: 6px;
+    margin-left: 17px;
+    color: black;
+    z-index: 3000;
+    background-color: white;
+    font-style: normal;
+    font-family: 'Roboto Mono', monospace;
+}
+
+.surprise{
+    display: none;
+    width: 100%;
+    height: 100vh;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+
+    background-color: #1c1919;
+}
